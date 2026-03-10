@@ -1,0 +1,27 @@
+services:
+  shiftpilot-api:
+    build:
+      context: ../server
+    container_name: shiftpilot-api
+    ports:
+      - "8000:8000"
+    env_file:
+      - .env.example
+    depends_on:
+      - shiftpilot-db
+
+  shiftpilot-db:
+    image: postgres:16
+    container_name: shiftpilot-db
+    restart: always
+    environment:
+      POSTGRES_USER: shiftpilot
+      POSTGRES_PASSWORD: shiftpilot
+      POSTGRES_DB: shiftpilot
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+
+volumes:
+  postgres_data:

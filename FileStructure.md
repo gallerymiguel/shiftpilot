@@ -1,0 +1,20 @@
+shiftpilot/
+  server/
+    app/
+      api/
+      core/
+      db/
+      models/
+      schemas/
+      services/
+      rag/
+      main.py
+    requirements.txt
+    Dockerfile
+  infra/
+    docker-compose.yml
+    .env.example
+  workflows/
+    n8n/
+  README.md
+  .gitignore
