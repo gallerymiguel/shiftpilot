@@ -1,0 +1,81 @@
+{
+  "name": "My workflow 2",
+  "nodes": [
+    {
+      "parameters": {
+        "updates": [
+          "message"
+        ],
+        "additionalFields": {}
+      },
+      "type": "n8n-nodes-base.telegramTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        0
+      ],
+      "id": "36eb36f9-3705-4068-8b3f-cdb55b68c232",
+      "name": "Telegram Trigger",
+      "webhookId": "f3c583ab-e0ea-4d5d-a33b-0e7b2a527e78",
+      "credentials": {
+        "telegramApi": {
+          "id": "0Tp0FYYHbGSmOYxb",
+          "name": "Telegram account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "http://shiftpilot-api:8000/sms",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
+            {
+              "name": "phone",
+              "value": "+15125550001"
+            },
+            {
+              "name": "message",
+              "value": "={{$json[\"message\"][\"text\"]}}"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        208,
+        0
+      ],
+      "id": "116bc3cb-e11d-4cac-be5f-dd873096988e",
+      "name": "HTTP Request"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Telegram Trigger": {
+      "main": [
+        [
+          {
+            "node": "HTTP Request",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f228ccb6-6d0d-49d4-9cae-0432d732ef52",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "cc58ff771b36cce343d226ea155381ca16f695410b75e383dbf3912bf3e6dd07"
+  },
+  "id": "i1yriv6xCjnauH2W",
+  "tags": []
+}
