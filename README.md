@@ -4,6 +4,11 @@ ShiftPilot is an AI-powered scheduling assistant that automates employee call-ou
 
 This project demonstrates modern AI architecture patterns including orchestration workflows, RAG (Retrieval-Augmented Generation), and multi-service integration.
 
+
+## 🧠 Architecture
+
+![ShiftPilot Architecture](./architecture.png)
+
 ---
 
 ## 🚀 What It Does
