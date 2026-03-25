@@ -10,6 +10,8 @@ services:
     depends_on:
       shiftpilot-db:
         condition: service_healthy
+    volumes:
+      - chroma_data:/chroma
 
   shiftpilot-db:
     image: postgres:16
@@ -29,5 +31,20 @@ services:
       timeout: 5s
       retries: 10
 
+  shiftpilot-n8n:
+    image: n8nio/n8n:latest
+    container_name: shiftpilot-n8n
+    ports:
+      - "5678:5678"
+    environment:
+      N8N_HOST: localhost
+      N8N_PORT: 5678
+      N8N_PROTOCOL: http
+      WEBHOOK_URL: https://22c7-136-49-49-188.ngrok-free.app
+    volumes:
+      - n8n_data:/home/node/.n8n
+
 volumes:
   postgres_data:
+  n8n_data:
+  chroma_data:

@@ -1,0 +1,104 @@
+{
+  "name": "My workflow",
+  "nodes": [
+    {
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "6d2e6446-9109-44a4-a6f1-4405d332104a",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2.1,
+      "position": [
+        0,
+        0
+      ],
+      "id": "bcf62103-2ed3-42cb-80d0-c67cf7dd3738",
+      "name": "Webhook",
+      "webhookId": "6d2e6446-9109-44a4-a6f1-4405d332104a"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "872e1064-2fc4-4ba8-a854-c289bc5c5113",
+              "name": "employee",
+              "value": "={{ $json.body.employee }}",
+              "type": "string"
+            },
+            {
+              "id": "209133df-3e7c-4f39-a313-a9a1111336d8",
+              "name": "shift_id",
+              "value": "={{$json[\"body\"][\"shift_id\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "3ce73eb9-2058-4592-b1c3-31a863b52f21",
+              "name": "top_candidate",
+              "value": "={{$json[\"body\"][\"recommendations\"][0][\"name\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "ec59afc8-987b-4cc0-9ef7-d596c165fada",
+              "name": "backup_candidate",
+              "value": "={{$json[\"body\"][\"recommendations\"][1][\"name\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "46057e80-d6c7-4166-88b5-dbae81c84dac",
+              "name": "explanation",
+              "value": "={{$json[\"body\"][\"explanation\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "29987934-0b14-4c85-8bb5-91b95f4c7394",
+              "name": "draft_message",
+              "value": "={{$json[\"body\"][\"draft_message\"]}}",
+              "type": "string"
+            },
+            {
+              "id": "c45ccaa6-d250-4a14-8d9a-6c7e904e20dc",
+              "name": "manager_summary",
+              "value": "={{\"🚨 Call-Out Alert\\n\\n\" + \"Employee: \" + $json[\"body\"][\"employee\"] + \"\\n\" + \"Shift ID: \" + $json[\"body\"][\"shift_id\"] + \"\\n\\n\" + \"Top Candidate: \" + $json[\"body\"][\"recommendations\"][0][\"name\"] + \"\\n\" + \"Backup Candidate: \" + $json[\"body\"][\"recommendations\"][1][\"name\"] + \"\\n\\n\" + \"Reason:\\n\" + $json[\"body\"][\"explanation\"] + \"\\n\\n\" + \"Suggested Message:\\n\" + $json[\"body\"][\"draft_message\"]}}",
+              "type": "string"
+            }
+          ]
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        208,
+        0
+      ],
+      "id": "53bf65fd-775e-482e-aba6-cec364116b28",
+      "name": "Edit Fields"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Edit Fields",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": false,
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "versionId": "f20160c3-2ee2-4d49-8dfa-70092396ce35",
+  "meta": {
+    "instanceId": "f75a9fb631abe64ca3fb211a0e1854cf649e2f4bfa1f5d0601708a1967eee84d"
+  },
+  "id": "PLCkAKoXmqArE9jL",
+  "tags": []
+}

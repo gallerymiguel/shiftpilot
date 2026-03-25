@@ -1,4 +1,5 @@
 from openai import OpenAI
+
 from app.core.config import settings
 
 client = OpenAI(api_key=settings.openai_api_key)
@@ -9,11 +10,13 @@ def generate_cover_explanation(
     store_id: int,
     date: str,
     shift_type: str,
-    recommendations: list
-):
-
+    recommendations: list[dict],
+    policies: list[str] | None = None,
+) -> str:
     if not recommendations:
         return "No replacement candidates were found for this shift."
+
+    policy_text = "\n".join(f"- {policy}" for policy in (policies or []))
 
     prompt = f"""
 You are an operations assistant for a retail workforce scheduling system.
@@ -26,16 +29,20 @@ Store ID: {store_id}
 Date: {date}
 Shift type: {shift_type}
 
+Relevant staffing policies:
+{policy_text if policy_text else "- No policies retrieved."}
+
 Ranked candidates:
 {recommendations}
 
 Explain to a store manager who should cover the shift and why.
 Keep the explanation short and professional.
+Use the retrieved policy context when relevant.
 """
 
     response = client.responses.create(
         model="gpt-4.1-mini",
-        input=prompt
+        input=prompt,
     )
 
-    return response.output_text
+    return response.output_text.strip()
