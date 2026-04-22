@@ -51,28 +51,6 @@
       ],
       "id": "c3e2d379-4dd6-406d-b302-e506d36df471",
       "name": "HTTP Request"
-    },
-    {
-      "parameters": {
-        "chatId": "={{$node[\"Telegram Trigger\"].json[\"message\"][\"chat\"][\"id\"]}}",
-        "text": "={{$node[\"HTTP Request\"].json[\"draft_message\"]}}",
-        "additionalFields": {}
-      },
-      "type": "n8n-nodes-base.telegram",
-      "typeVersion": 1.2,
-      "position": [
-        416,
-        0
-      ],
-      "id": "adf72f18-4de2-4669-aced-850f088be155",
-      "name": "Send a text message",
-      "webhookId": "82340d63-ad15-4209-a08f-0646fb0b7a11",
-      "credentials": {
-        "telegramApi": {
-          "id": "9VucMmrWi713EKUj",
-          "name": "Telegram account"
-        }
-      }
     }
   ],
   "pinData": {},
@@ -82,17 +60,6 @@
         [
           {
             "node": "HTTP Request",
-            "type": "main",
-            "index": 0
-          }
-        ]
-      ]
-    },
-    "HTTP Request": {
-      "main": [
-        [
-          {
-            "node": "Send a text message",
             "type": "main",
             "index": 0
           }

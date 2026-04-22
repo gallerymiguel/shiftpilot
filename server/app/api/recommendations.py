@@ -71,12 +71,18 @@ def recommend_cover(shift_id: int, db: Session = Depends(get_db)):
                 "name": employee.name,
                 "role": employee.role,
                 "home_store_id": employee.home_store_id,
+                "estimated_drive_minutes": employee.estimated_drive_minutes,
                 "priority": priority,
                 "reason": reason,
             }
         )
 
-    ranked_candidates.sort(key=lambda candidate: candidate["priority"])
+    ranked_candidates.sort(
+        key=lambda candidate: (
+            candidate["priority"],
+            candidate["estimated_drive_minutes"],
+        )
+    )
 
     policy_query = f"Coverage rules for a {target_shift.shift_type} shift on {target_shift.date} at store {target_shift.store_id}"
     retrieved_policies = retrieve_policies(policy_query)

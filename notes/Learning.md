@@ -160,6 +160,69 @@ AI does not decide everything — rules still matter.
 
 This hybrid approach is used in many real systems.
 
+### Distance as a tie-breaker
+
+The ranking system uses two signals:
+
+```
+priority
+estimated_drive_minutes
+```
+
+The `priority` value represents the business rule. Lower is better:
+
+```
+1 = floater
+2 = dedicated employee from the same store
+3 = dedicated employee from another store
+4 = manager
+99 = fallback
+```
+
+Then the system uses estimated drive time as a tie-breaker.
+
+Example:
+
+```python
+ranked_candidates.sort(
+    key=lambda candidate: (
+        candidate["priority"],
+        candidate["estimated_drive_minutes"],
+    )
+)
+```
+
+This means:
+
+```
+1. Sort by business priority first
+2. If two candidates have the same priority, sort by shortest drive time
+```
+
+The system does **not** simply pick the closest person overall.
+
+Example:
+
+```
+Josh    priority 2, drive 12 minutes
+Marcus  priority 3, drive 5 minutes
+```
+
+Josh still wins because same-store coverage is a better business match.
+
+But if two candidates have the same priority:
+
+```
+Josh   priority 2, drive 12 minutes
+Elena  priority 2, drive 18 minutes
+```
+
+Josh wins because both candidates are equal by business rule, and Josh has the shorter drive time.
+
+Interview explanation:
+
+> I used a two-level ranking system. The first score encodes business priority, like floaters before same-store dedicated employees before other-store employees. Then I use estimated drive time as a tie-breaker within the same priority group. That keeps the recommendation aligned with company policy while still choosing the practical option when candidates are otherwise equivalent.
+
 ---
 
 # 5. Event-Driven Thinking
