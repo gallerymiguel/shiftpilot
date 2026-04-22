@@ -31,6 +31,7 @@ def seed_data(db: Session = Depends(get_db)):
             phone="+15125550001",
             role="floater",
             home_store_id=None,
+            estimated_drive_minutes=20,
             is_active=True,
         ),
         Employee(
@@ -38,6 +39,7 @@ def seed_data(db: Session = Depends(get_db)):
             phone="+15125550002",
             role="dedicated",
             home_store_id=store_1.id,
+            estimated_drive_minutes=12,
             is_active=True,
         ),
         Employee(
@@ -45,6 +47,7 @@ def seed_data(db: Session = Depends(get_db)):
             phone="+15125550003",
             role="dedicated",
             home_store_id=store_1.id,
+            estimated_drive_minutes=18,
             is_active=True,
         ),
         Employee(
@@ -52,6 +55,7 @@ def seed_data(db: Session = Depends(get_db)):
             phone="+15125550004",
             role="dedicated",
             home_store_id=store_2.id,
+            estimated_drive_minutes=35,
             is_active=True,
         ),
         Employee(
@@ -59,6 +63,7 @@ def seed_data(db: Session = Depends(get_db)):
             phone="+15125550005",
             role="manager",
             home_store_id=store_2.id,
+            estimated_drive_minutes=25,
             is_active=True,
         ),
     ]

@@ -23,3 +23,6 @@ postgres_data/
 
 # n8n
 n8n_data/
+
+# Documentation
+AGENTS.md

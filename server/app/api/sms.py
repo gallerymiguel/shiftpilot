@@ -102,12 +102,18 @@ def handle_sms(payload: IncomingMessage, db: Session = Depends(get_db)):
                 "name": candidate.name,
                 "role": candidate.role,
                 "home_store_id": candidate.home_store_id,
+                "estimated_drive_minutes": candidate.estimated_drive_minutes,
                 "priority": priority,
                 "reason": reason,
             }
         )
 
-    ranked_candidates.sort(key=lambda x: x["priority"])
+    ranked_candidates.sort(
+        key=lambda candidate: (
+            candidate["priority"],
+            candidate["estimated_drive_minutes"],
+        )
+    )
 
     policy_query = f"""
     Call-out coverage rules for a {shift.shift_type} shift.
